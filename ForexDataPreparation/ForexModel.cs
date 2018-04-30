@@ -1,11 +1,9 @@
+using ForexDataPreparation.Entities;
+using System.Data.Entity;
+
 namespace ForexDataPreparation
 {
-    using System;
-    using System.Data.Entity;
-    using System.ComponentModel.DataAnnotations.Schema;
-    using System.Linq;
-
-    public partial class ForexModel : DbContext
+    public class ForexModel : DbContext
     {
         public ForexModel()
             : base("name=ForexModel")
@@ -16,6 +14,8 @@ namespace ForexDataPreparation
         public virtual DbSet<GbpUsdGrowth> GbpUsdGrowth { get; set; }
         public virtual DbSet<UsdGbp> UsdGbp { get; set; }
         public virtual DbSet<UsdGbpGrowth> UsdGbpGrowth { get; set; }
+        public virtual DbSet<GbpUsdGrowthQuaterly> GbpUsdGrowthQuaterlies { get; set; }
+        public virtual DbSet<UsdGbpGrowthQuaterly> UsdGbpGrowthQuaterlies { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
