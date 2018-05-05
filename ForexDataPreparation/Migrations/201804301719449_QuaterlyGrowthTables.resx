@@ -123,4 +123,7 @@
   <data name="DefaultSchema" xml:space="preserve">
     <value>dbo</value>
   </data>
+  <data name="GrowthCalculations_GetGrowth_Addin_to_entityTGrowth" xml:space="preserve">
+    <value>Addin to entityTGrowth</value>
+  </data>
 </root>

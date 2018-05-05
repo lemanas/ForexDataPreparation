@@ -1,4 +1,5 @@
-﻿using ForexDataPreparation.Procedures;
+﻿using System;
+using ForexDataPreparation.Procedures;
 
 namespace ForexDataPreparation
 {
@@ -6,11 +7,24 @@ namespace ForexDataPreparation
     {
         static void Main(string[] args)
         {
-            GrowthCalculations.GetGbpUsdGrowth(1); // Daily GbpUsd - Done
-            GrowthCalculations.GetUsdGbpGrowth(1); // Daily UsdGbp - Done
+            using (ForexModel context = new ForexModel())
+            {
+                context.Configuration.AutoDetectChangesEnabled = false;
 
-            //GrowthCalculations.GetGbpUsdGrowth(60); // Quater GbpUsd - Done
-            //GrowthCalculations.GetUsdGbpGrowth(60); // Quater UsdGbp - Done
+                context.Database.ExecuteSqlCommand("EXECUTE [dbo].[TruncateGrowths]");
+
+                GrowthCalculations.GetGrowth(240, context.GbpUsd, context.GbpUsdGrowth);
+                GrowthCalculations.GetGrowth(240, context.UsdGbp, context.UsdGbpGrowth);
+                Console.WriteLine(@"Finished yearly growths");
+
+                GrowthCalculations.GetGrowth(60, context.GbpUsd, context.GbpUsdGrowthQuaterlies);
+                GrowthCalculations.GetGrowth(60, context.UsdGbp, context.UsdGbpGrowthQuaterlies);
+                Console.WriteLine(@"Finished quaterly growths");
+
+                Console.WriteLine(@"Saving changes...");
+                context.SaveChanges();
+            }
+
         }
     }
 }

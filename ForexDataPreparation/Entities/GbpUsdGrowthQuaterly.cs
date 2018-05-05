@@ -1,10 +1,11 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using ForexDataPreparation.Interfaces;
 
 namespace ForexDataPreparation.Entities
 {
-    public class GbpUsdGrowthQuaterly
+    public class GbpUsdGrowthQuaterly : IGrowth
     {
         [Key]
         [Column(Order = 0, TypeName = "datetime2")]

@@ -56,6 +56,8 @@
     <Compile Include="ForexModel.cs" />
     <Compile Include="Entities\GbpUsd.cs" />
     <Compile Include="Entities\GbpUsdGrowth.cs" />
+    <Compile Include="Interfaces\IGrowth.cs" />
+    <Compile Include="Interfaces\IRawData.cs" />
     <Compile Include="Migrations\201804301719449_QuaterlyGrowthTables.cs" />
     <Compile Include="Migrations\201804301719449_QuaterlyGrowthTables.Designer.cs">
       <DependentUpon>201804301719449_QuaterlyGrowthTables.cs</DependentUpon>

@@ -1,13 +1,12 @@
-namespace ForexDataPreparation
-{
-    using System;
-    using System.Collections.Generic;
-    using System.ComponentModel.DataAnnotations;
-    using System.ComponentModel.DataAnnotations.Schema;
-    using System.Data.Entity.Spatial;
+using System;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+using ForexDataPreparation.Interfaces;
 
+namespace ForexDataPreparation.Entities
+{
     [Table("GbpUsd")]
-    public partial class GbpUsd
+    public class GbpUsd : IRawData
     {
         [Key]
         [Column(Order = 0, TypeName = "datetime2")]

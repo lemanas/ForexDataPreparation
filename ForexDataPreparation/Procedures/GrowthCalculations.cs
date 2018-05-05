@@ -1,62 +1,30 @@
 ﻿using System;
+using System.Data.Entity;
 using System.Linq;
-using ForexDataPreparation.Entities;
+using ForexDataPreparation.Interfaces;
 
 namespace ForexDataPreparation.Procedures
 {
     public static class GrowthCalculations
     {
-        public static void GetGbpUsdGrowth(int periodByDays)
+        public static void GetGrowth<T, TGrowth>(int periodByDays, DbSet<T> tentity, DbSet<TGrowth> tgrowth) where T : class, IRawData where TGrowth : class, IGrowth, new()
         {
-            using (ForexModel context = new ForexModel())
+            DateTime startDateTime = new DateTime(2000, 1, 1);
+            var data = tentity.Where(d => d.Date > startDateTime).ToList();
+            for (int i = periodByDays; i < data.Count; i += periodByDays)
             {
-                DateTime startDateTime = new DateTime(2000, 1, 1);
-                var data = context.GbpUsd.Where(d => d.Date > startDateTime).ToList();
-                var totalCount = data.Count - 1;
-                for (int i = periodByDays; i < data.Count; i += periodByDays)
+                DateTime currentDay = data[i].Date;
+
+                double currentPrice = data[i].Close;
+                double previousDayPrice = data[i - periodByDays].Close;
+                double growth = CalculateGrowth(previousDayPrice, currentPrice);
+
+                var item = new TGrowth
                 {
-                    DateTime currentDay = data[i].Date;
-
-                    double currentPrice = data[i].Close;
-                    double previousDayPrice = data[i - periodByDays].Close;
-                    double growth = CalculateGrowth(previousDayPrice, currentPrice);
-
-                    var item = new GbpUsdGrowth
-                    {
-                        Date = currentDay,
-                        CloseGrowth = growth
-                    };
-                    context.GbpUsdGrowth.Add(item);
-                    Console.Write($"\r{i} / {totalCount}");
-                }
-                context.SaveChanges();
-            }
-        }
-
-        public static void GetUsdGbpGrowth(int periodByDays)
-        {
-            using (ForexModel context = new ForexModel())
-            {
-                DateTime startDateTime = new DateTime(2000, 1, 1);
-                var data = context.UsdGbp.Where(d => d.Date > startDateTime).ToList();
-                var totalCount = data.Count - 1;
-                for (int i = periodByDays; i < data.Count; i += periodByDays)
-                {
-                    DateTime currentDay = data[i].Date;
-
-                    double currentPrice = data[i].Close;
-                    double previousDayPrice = data[i - periodByDays].Close;
-                    double growth = CalculateGrowth(previousDayPrice, currentPrice);
-
-                    var item = new UsdGbpGrowth
-                    {
-                        Date = currentDay,
-                        CloseGrowth = growth
-                    };
-                    context.UsdGbpGrowth.Add(item);
-                    Console.Write($"\r{i} / {totalCount}");
-                }
-                context.SaveChanges();
+                    Date = currentDay,
+                    CloseGrowth = growth
+                };
+                tgrowth.Add(item);
             }
         }
 
