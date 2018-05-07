@@ -51,8 +51,15 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Entities\CpiQuaterlyRate.cs" />
+    <Compile Include="Entities\CpiRate.cs" />
+    <Compile Include="Entities\CpiYearlyRate.cs" />
+    <Compile Include="Entities\Debt.cs" />
     <Compile Include="Entities\GbpUsdGrowthQuaterly.cs" />
+    <Compile Include="Entities\Trade.cs" />
+    <Compile Include="Entities\UkInterestRate.cs" />
     <Compile Include="Entities\UsdGbpGrowthQuaterly.cs" />
+    <Compile Include="Entities\UsMonthlyInterestRate.cs" />
     <Compile Include="ForexModel.cs" />
     <Compile Include="Entities\GbpUsd.cs" />
     <Compile Include="Entities\GbpUsdGrowth.cs" />
@@ -61,6 +68,86 @@
     <Compile Include="Migrations\201804301719449_QuaterlyGrowthTables.cs" />
     <Compile Include="Migrations\201804301719449_QuaterlyGrowthTables.Designer.cs">
       <DependentUpon>201804301719449_QuaterlyGrowthTables.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201805061500511_UkInterestRatesTbl.cs" />
+    <Compile Include="Migrations\201805061500511_UkInterestRatesTbl.Designer.cs">
+      <DependentUpon>201805061500511_UkInterestRatesTbl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201805061507478_UkIRTypeChange.cs" />
+    <Compile Include="Migrations\201805061507478_UkIRTypeChange.Designer.cs">
+      <DependentUpon>201805061507478_UkIRTypeChange.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201805061509274_Prev.cs" />
+    <Compile Include="Migrations\201805061509274_Prev.Designer.cs">
+      <DependentUpon>201805061509274_Prev.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201805061510008_UndoLatestChanges.cs" />
+    <Compile Include="Migrations\201805061510008_UndoLatestChanges.Designer.cs">
+      <DependentUpon>201805061510008_UndoLatestChanges.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201805061517024_DateString.cs" />
+    <Compile Include="Migrations\201805061517024_DateString.Designer.cs">
+      <DependentUpon>201805061517024_DateString.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201805061531253_UsIRates.cs" />
+    <Compile Include="Migrations\201805061531253_UsIRates.Designer.cs">
+      <DependentUpon>201805061531253_UsIRates.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201805062032058_CpiTbl.cs" />
+    <Compile Include="Migrations\201805062032058_CpiTbl.Designer.cs">
+      <DependentUpon>201805062032058_CpiTbl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201805062033222_CpiRatesTry2.cs" />
+    <Compile Include="Migrations\201805062033222_CpiRatesTry2.Designer.cs">
+      <DependentUpon>201805062033222_CpiRatesTry2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201805062055280_CpiQuad&amp;Yr.cs" />
+    <Compile Include="Migrations\201805062055280_CpiQuad&amp;Yr.Designer.cs">
+      <DependentUpon>201805062055280_CpiQuad&amp;Yr.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201805071425545_Tradetbl.cs" />
+    <Compile Include="Migrations\201805071425545_Tradetbl.Designer.cs">
+      <DependentUpon>201805071425545_Tradetbl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201805071426543_TradeTblAdded.cs" />
+    <Compile Include="Migrations\201805071426543_TradeTblAdded.Designer.cs">
+      <DependentUpon>201805071426543_TradeTblAdded.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201805071431430_DatetimeToInt.cs" />
+    <Compile Include="Migrations\201805071431430_DatetimeToInt.Designer.cs">
+      <DependentUpon>201805071431430_DatetimeToInt.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201805071435231_DelTbl.cs" />
+    <Compile Include="Migrations\201805071435231_DelTbl.Designer.cs">
+      <DependentUpon>201805071435231_DelTbl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201805071436191_AddModifiedTbl.cs" />
+    <Compile Include="Migrations\201805071436191_AddModifiedTbl.Designer.cs">
+      <DependentUpon>201805071436191_AddModifiedTbl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201805071436450_AddModifiedTbl2.cs" />
+    <Compile Include="Migrations\201805071436450_AddModifiedTbl2.Designer.cs">
+      <DependentUpon>201805071436450_AddModifiedTbl2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201805071451120_DebtsTbl.cs" />
+    <Compile Include="Migrations\201805071451120_DebtsTbl.Designer.cs">
+      <DependentUpon>201805071451120_DebtsTbl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201805071512251_ChangeCpiSchema.cs" />
+    <Compile Include="Migrations\201805071512251_ChangeCpiSchema.Designer.cs">
+      <DependentUpon>201805071512251_ChangeCpiSchema.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201805071513461_ChangeYearlycpiSchema.cs" />
+    <Compile Include="Migrations\201805071513461_ChangeYearlycpiSchema.Designer.cs">
+      <DependentUpon>201805071513461_ChangeYearlycpiSchema.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201805071517142_DboToRaw.cs" />
+    <Compile Include="Migrations\201805071517142_DboToRaw.Designer.cs">
+      <DependentUpon>201805071517142_DboToRaw.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201805071520355_DboToCalc.cs" />
+    <Compile Include="Migrations\201805071520355_DboToCalc.Designer.cs">
+      <DependentUpon>201805071520355_DboToCalc.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Procedures\GrowthCalculations.cs" />
@@ -76,6 +163,66 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201804301719449_QuaterlyGrowthTables.resx">
       <DependentUpon>201804301719449_QuaterlyGrowthTables.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201805061500511_UkInterestRatesTbl.resx">
+      <DependentUpon>201805061500511_UkInterestRatesTbl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201805061507478_UkIRTypeChange.resx">
+      <DependentUpon>201805061507478_UkIRTypeChange.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201805061509274_Prev.resx">
+      <DependentUpon>201805061509274_Prev.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201805061510008_UndoLatestChanges.resx">
+      <DependentUpon>201805061510008_UndoLatestChanges.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201805061517024_DateString.resx">
+      <DependentUpon>201805061517024_DateString.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201805061531253_UsIRates.resx">
+      <DependentUpon>201805061531253_UsIRates.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201805062032058_CpiTbl.resx">
+      <DependentUpon>201805062032058_CpiTbl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201805062033222_CpiRatesTry2.resx">
+      <DependentUpon>201805062033222_CpiRatesTry2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201805062055280_CpiQuad&amp;Yr.resx">
+      <DependentUpon>201805062055280_CpiQuad&amp;Yr.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201805071425545_Tradetbl.resx">
+      <DependentUpon>201805071425545_Tradetbl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201805071426543_TradeTblAdded.resx">
+      <DependentUpon>201805071426543_TradeTblAdded.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201805071431430_DatetimeToInt.resx">
+      <DependentUpon>201805071431430_DatetimeToInt.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201805071435231_DelTbl.resx">
+      <DependentUpon>201805071435231_DelTbl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201805071436191_AddModifiedTbl.resx">
+      <DependentUpon>201805071436191_AddModifiedTbl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201805071436450_AddModifiedTbl2.resx">
+      <DependentUpon>201805071436450_AddModifiedTbl2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201805071451120_DebtsTbl.resx">
+      <DependentUpon>201805071451120_DebtsTbl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201805071512251_ChangeCpiSchema.resx">
+      <DependentUpon>201805071512251_ChangeCpiSchema.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201805071513461_ChangeYearlycpiSchema.resx">
+      <DependentUpon>201805071513461_ChangeYearlycpiSchema.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201805071517142_DboToRaw.resx">
+      <DependentUpon>201805071517142_DboToRaw.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201805071520355_DboToCalc.resx">
+      <DependentUpon>201805071520355_DboToCalc.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -5,7 +5,7 @@ using ForexDataPreparation.Interfaces;
 
 namespace ForexDataPreparation.Entities
 {
-    [Table("UsdGbp")]
+    [Table("UsdGbp", Schema = "raw")]
     public class UsdGbp : IRawData
     {
         [Key]

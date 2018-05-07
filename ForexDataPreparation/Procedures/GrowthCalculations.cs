@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 using ForexDataPreparation.Interfaces;
@@ -32,6 +33,11 @@ namespace ForexDataPreparation.Procedures
         {
             double difference = currentValue - previousValue;
             return (difference / previousValue) * 100;
+        }
+
+        private static DateTime GetFirstDay<T>(this List<T> data, int year) where T : class, IRawData
+        {
+            return data.Where(day => day.Date.Year == year).Min().Date;
         }
     }
 }

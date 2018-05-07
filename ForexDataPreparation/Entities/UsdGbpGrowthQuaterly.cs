@@ -5,6 +5,7 @@ using ForexDataPreparation.Interfaces;
 
 namespace ForexDataPreparation.Entities
 {
+    [Table("UsdGbpGrowthQuaterlies", Schema = "calc")]
     public class UsdGbpGrowthQuaterly : IGrowth
     {
         [Key]

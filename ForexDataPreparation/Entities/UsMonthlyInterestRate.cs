@@ -1,19 +1,18 @@
-using System;
+﻿using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using ForexDataPreparation.Interfaces;
 
 namespace ForexDataPreparation.Entities
 {
-    [Table("UsdGbpGrowth", Schema = "calc")]
-    public class UsdGbpGrowth : IGrowth
+    [Table("UsMonthlyInterestRates", Schema = "raw")]
+    public class UsMonthlyInterestRate
     {
         [Key]
-        [Column(Order = 0, TypeName = "datetime2")]
+        [Column(Order = 0)]
         public DateTime Date { get; set; }
 
         [Key]
         [Column(Order = 1)]
-        public double CloseGrowth { get; set; }
+        public double Rate { get; set; }
     }
 }

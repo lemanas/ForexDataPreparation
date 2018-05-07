@@ -5,7 +5,7 @@ using ForexDataPreparation.Interfaces;
 
 namespace ForexDataPreparation.Entities
 {
-    [Table("GbpUsdGrowth")]
+    [Table("GbpUsdGrowth", Schema = "calc")]
     public class GbpUsdGrowth : IGrowth
     {
         [Key]
