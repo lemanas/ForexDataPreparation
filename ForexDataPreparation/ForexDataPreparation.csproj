@@ -66,6 +66,8 @@
     <Compile Include="ForexModel.cs" />
     <Compile Include="Entities\GbpUsd.cs" />
     <Compile Include="Entities\GbpUsdGrowth.cs" />
+    <Compile Include="Helpers\DateHelpers.cs" />
+    <Compile Include="Interfaces\IDate.cs" />
     <Compile Include="Interfaces\IGrowth.cs" />
     <Compile Include="Interfaces\IRawData.cs" />
     <Compile Include="Migrations\201804301719449_QuaterlyGrowthTables.cs" />
