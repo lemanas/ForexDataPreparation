@@ -23,6 +23,9 @@ namespace ForexDataPreparation
         public virtual DbSet<CpiYearlyRate> CpiYearlyRates { get; set; }
         public virtual DbSet<Trade> Trades { get; set; }
         public virtual DbSet<Debt> Debts { get; set; }
+        public virtual DbSet<CpiYearlyDifference> CpiYearlyDifferences { get; set; }
+        public virtual DbSet<CpiQuaterlyDifference> CpiQuaterlyDifferences { get; set; }
+        public virtual DbSet<DebtGrowth> DebtGrowths { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {

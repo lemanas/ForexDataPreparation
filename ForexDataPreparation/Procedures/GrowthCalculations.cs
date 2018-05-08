@@ -1,14 +1,14 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
+using ForexDataPreparation.Entities;
 using ForexDataPreparation.Interfaces;
 
 namespace ForexDataPreparation.Procedures
 {
     public static class GrowthCalculations
     {
-        public static void GetGrowth<T, TGrowth>(int periodByDays, DbSet<T> tentity, DbSet<TGrowth> tgrowth) where T : class, IRawData where TGrowth : class, IGrowth, new()
+        public static void CalculateForexGrowth<T, TGrowth>(int periodByDays, DbSet<T> tentity, DbSet<TGrowth> tgrowth) where T : class, IRawData where TGrowth : class, IGrowth, new()
         {
             DateTime startDateTime = new DateTime(2000, 1, 1);
             var data = tentity.Where(d => d.Date > startDateTime).ToList();
@@ -29,15 +29,34 @@ namespace ForexDataPreparation.Procedures
             }
         }
 
+        public static void CalculateDebtGrowth(string country)
+        {
+            using (ForexModel context = new ForexModel())
+            {
+                var data = context.Debts.Where(c => c.Country == country).ToList();
+                for (int i = 1; i < data.Count; i++)
+                {
+                    double currentValue = data[i].PercentageDebt;
+                    double previousValue = data[i - 1].PercentageDebt;
+
+                    var item = new DebtGrowth
+                    {
+                        Country = country,
+                        Year = data[i].Year,
+                        Growth = CalculateGrowth(previousValue, currentValue)
+                    };
+
+                    context.DebtGrowths.Add(item);
+                }
+
+                context.SaveChanges();
+            }
+        }
+
         private static double CalculateGrowth(double previousValue, double currentValue)
         {
             double difference = currentValue - previousValue;
             return (difference / previousValue) * 100;
-        }
-
-        private static DateTime GetFirstDay<T>(this List<T> data, int year) where T : class, IRawData
-        {
-            return data.Where(day => day.Date.Year == year).Min().Date;
         }
     }
 }

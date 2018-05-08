@@ -13,13 +13,23 @@ namespace ForexDataPreparation
 
                 context.Database.ExecuteSqlCommand("EXECUTE [dbo].[TruncateGrowths]");
 
-                GrowthCalculations.GetGrowth(240, context.GbpUsd, context.GbpUsdGrowth);
-                GrowthCalculations.GetGrowth(240, context.UsdGbp, context.UsdGbpGrowth);
+                GrowthCalculations.CalculateForexGrowth(240, context.GbpUsd, context.GbpUsdGrowth);
+                GrowthCalculations.CalculateForexGrowth(240, context.UsdGbp, context.UsdGbpGrowth);
                 Console.WriteLine(@"Finished yearly growths");
 
-                GrowthCalculations.GetGrowth(60, context.GbpUsd, context.GbpUsdGrowthQuaterlies);
-                GrowthCalculations.GetGrowth(60, context.UsdGbp, context.UsdGbpGrowthQuaterlies);
+                GrowthCalculations.CalculateForexGrowth(60, context.GbpUsd, context.GbpUsdGrowthQuaterlies);
+                GrowthCalculations.CalculateForexGrowth(60, context.UsdGbp, context.UsdGbpGrowthQuaterlies);
                 Console.WriteLine(@"Finished quaterly growths");
+
+                DifferenceCalculations.CalculateCpiDifferenceYearly();
+                DifferenceCalculations.CalculateCpiDifferenceQuaterly();
+                Console.WriteLine(@"Finished CPI difference calculations");
+
+                GrowthCalculations.CalculateDebtGrowth("UK");
+                GrowthCalculations.CalculateDebtGrowth("USA");
+                Console.WriteLine(@"Finished Debt of GDP growth calculations");
+
+                DifferenceCalculations.CalculateInterestRateDifferenceYearly();
 
                 Console.WriteLine(@"Saving changes...");
                 context.SaveChanges();
