@@ -1,4 +1,5 @@
 ﻿using System;
+using ForexDataPreparation.Enums;
 using ForexDataPreparation.Procedures;
 
 namespace ForexDataPreparation
@@ -13,12 +14,12 @@ namespace ForexDataPreparation
 
                 context.Database.ExecuteSqlCommand("EXECUTE [dbo].[TruncateGrowths]");
 
-                GrowthCalculations.CalculateForexGrowth(240, context.GbpUsd, context.GbpUsdGrowth);
-                GrowthCalculations.CalculateForexGrowth(240, context.UsdGbp, context.UsdGbpGrowth);
+                GrowthCalculations.CalculateForexGrowth(Period.Yearly, context.GbpUsd, context.GbpUsdGrowth);
+                GrowthCalculations.CalculateForexGrowth(Period.Yearly, context.UsdGbp, context.UsdGbpGrowth);
                 Console.WriteLine(@"Finished yearly growths");
 
-                GrowthCalculations.CalculateForexGrowth(60, context.GbpUsd, context.GbpUsdGrowthQuaterlies);
-                GrowthCalculations.CalculateForexGrowth(60, context.UsdGbp, context.UsdGbpGrowthQuaterlies);
+                GrowthCalculations.CalculateForexGrowth(Period.Quaterly, context.GbpUsd, context.GbpUsdGrowthQuaterlies);
+                GrowthCalculations.CalculateForexGrowth(Period.Quaterly, context.UsdGbp, context.UsdGbpGrowthQuaterlies);
                 Console.WriteLine(@"Finished quaterly growths");
 
                 DifferenceCalculations.CalculateCpiDifferenceYearly();
@@ -29,7 +30,16 @@ namespace ForexDataPreparation
                 GrowthCalculations.CalculateDebtGrowth("USA");
                 Console.WriteLine(@"Finished Debt of GDP growth calculations");
 
-                DifferenceCalculations.CalculateInterestRateDifferenceYearly();
+                DifferenceCalculations.CalculateInterestRateDifference(Period.Yearly);
+                DifferenceCalculations.CalculateInterestRateDifference(Period.Quaterly);
+                Console.WriteLine(@"Finished interest rate difference calculations");
+
+                DifferenceCalculations.CalculateTradeBalance("UK");
+                DifferenceCalculations.CalculateTradeBalance("USA");
+                Console.WriteLine(@"Finished trade balance calculations");
+
+                AnalyticRecordCreator.UploadAnalyticRecords();
+                Console.WriteLine(@"Finished uploading analytic records");
 
                 Console.WriteLine(@"Saving changes...");
                 context.SaveChanges();

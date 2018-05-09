@@ -51,6 +51,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Entities\AnalyticRecord.cs" />
     <Compile Include="Entities\CpiQuaterlyDifference.cs" />
     <Compile Include="Entities\CpiQuaterlyRate.cs" />
     <Compile Include="Entities\CpiRate.cs" />
@@ -59,10 +60,15 @@
     <Compile Include="Entities\Debt.cs" />
     <Compile Include="Entities\DebtGrowth.cs" />
     <Compile Include="Entities\GbpUsdGrowthQuaterly.cs" />
+    <Compile Include="Entities\InterestRateQuaterlyDifference.cs" />
+    <Compile Include="Entities\InterestRateYearlyDifference.cs" />
     <Compile Include="Entities\Trade.cs" />
+    <Compile Include="Entities\TradeBalance.cs" />
     <Compile Include="Entities\UkInterestRate.cs" />
     <Compile Include="Entities\UsdGbpGrowthQuaterly.cs" />
     <Compile Include="Entities\UsMonthlyInterestRate.cs" />
+    <Compile Include="Enums\Outcome.cs" />
+    <Compile Include="Enums\Period.cs" />
     <Compile Include="ForexModel.cs" />
     <Compile Include="Entities\GbpUsd.cs" />
     <Compile Include="Entities\GbpUsdGrowth.cs" />
@@ -170,7 +176,24 @@
     <Compile Include="Migrations\201805081940065_DebtGrowthsTbl.Designer.cs">
       <DependentUpon>201805081940065_DebtGrowthsTbl.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201805091306579_IRateDiff.cs" />
+    <Compile Include="Migrations\201805091306579_IRateDiff.Designer.cs">
+      <DependentUpon>201805091306579_IRateDiff.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201805091524532_IRateQtDiffTbl.cs" />
+    <Compile Include="Migrations\201805091524532_IRateQtDiffTbl.Designer.cs">
+      <DependentUpon>201805091524532_IRateQtDiffTbl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201805091645498_TradeBalanceTbl.cs" />
+    <Compile Include="Migrations\201805091645498_TradeBalanceTbl.Designer.cs">
+      <DependentUpon>201805091645498_TradeBalanceTbl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201805091944000_AnalyticTbl.cs" />
+    <Compile Include="Migrations\201805091944000_AnalyticTbl.Designer.cs">
+      <DependentUpon>201805091944000_AnalyticTbl.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Procedures\AnalyticRecordCreator.cs" />
     <Compile Include="Procedures\DifferenceCalculations.cs" />
     <Compile Include="Procedures\GrowthCalculations.cs" />
     <Compile Include="Program.cs" />
@@ -258,6 +281,18 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201805081940065_DebtGrowthsTbl.resx">
       <DependentUpon>201805081940065_DebtGrowthsTbl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201805091306579_IRateDiff.resx">
+      <DependentUpon>201805091306579_IRateDiff.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201805091524532_IRateQtDiffTbl.resx">
+      <DependentUpon>201805091524532_IRateQtDiffTbl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201805091645498_TradeBalanceTbl.resx">
+      <DependentUpon>201805091645498_TradeBalanceTbl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201805091944000_AnalyticTbl.resx">
+      <DependentUpon>201805091944000_AnalyticTbl.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -12,9 +12,9 @@ namespace ForexDataPreparation.Helpers
             return data.Where(day => day.Date.Year == year).Min().Date;
         }
 
-        public static DateTime GetFirstAvailableDay<T>(List<T> data, int year, int month) where T : class, IDate
+        public static DateTime GetFirstAvailableDay<T>(List<T> data, int year, int month) where T : class, IRawData
         {
-            return data.Where(d => d.Date.Year == year && d.Date.Month == month).Min().Date;
+            return data.Select(d => d.Date).Where(d => d.Date.Year == year && d.Date.Month == month).Min();
         }
     }
 }

@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Linq;
 using ForexDataPreparation.Entities;
+using ForexDataPreparation.Enums;
+using ForexDataPreparation.Helpers;
 using ForexDataPreparation.Temporary_objects;
 
 namespace ForexDataPreparation.Procedures
@@ -63,7 +65,7 @@ namespace ForexDataPreparation.Procedures
             }
         }
 
-        public static void CalculateInterestRateDifferenceYearly()
+        public static void CalculateInterestRateDifference(Period period)
         {
             using (ForexModel context = new ForexModel())
             {
@@ -83,6 +85,87 @@ namespace ForexDataPreparation.Procedures
                     Rate = v.Rate,
                     Date = v.Date
                 }).ToList();
+
+                int ukMinYear = ukData.Select(y => y.Date.Year).Min();
+                int usMinYear = usData.Select(y => y.Date.Year).Min();
+                int minYear = ukMinYear >= usMinYear ? ukMinYear : usMinYear;
+
+                int ukMaxYear = ukData.Select(y => y.Date.Year).Max();
+                int usMaxYear = usData.Select(y => y.Date.Year).Max();
+                int maxYear = ukMaxYear <= usMaxYear ? ukMaxYear : usMaxYear;
+
+                for (int i = minYear; i <= maxYear; i++)
+                {
+                    if (period == Period.Quaterly)
+                    {
+                        int month = 1;
+                        for (int j = 1; j <= 4; j++)
+                        {
+                            if (!(i == 2017 && j > 1))
+                            {
+
+                                DateTime ukDate = DateHelpers.GetFirstAvailableDay(ukData, i, month);
+                                DateTime usDate = DateHelpers.GetFirstAvailableDay(usData, i, month);
+
+                                double ukRate = ukData.Where(d => d.Date == ukDate).Select(r => r.Rate).First();
+                                double usRate = usData.Where(d => d.Date == usDate).Select(r => r.Rate).First();
+
+                                InterestRateQuaterlyDifference difference = new InterestRateQuaterlyDifference
+                                {
+                                    Year = i,
+                                    Quater = j,
+                                    Difference = ukRate - usRate
+                                };
+
+                                context.InterestRateQuaterlyDifferences.Add(difference);
+                                month += 3;
+                            }
+                        }
+                    }
+                    else if (period == Period.Yearly)
+                    {
+
+                        DateTime ukDate = DateHelpers.GetFirstAvailableDay(ukData, i, 1);
+                        DateTime usDate = DateHelpers.GetFirstAvailableDay(usData, i, 1);
+
+                        double ukRate = ukData.Where(d => d.Date == ukDate).Select(r => r.Rate).First();
+                        double usRate = usData.Where(d => d.Date == usDate).Select(r => r.Rate).First();
+
+                        InterestRateYearlyDifference difference = new InterestRateYearlyDifference
+                        {
+                            Year = i,
+                            Difference = ukRate - usRate
+                        };
+
+                        context.InterestRateYearlyDifferences.Add(difference);
+                    }
+                }
+
+                context.SaveChanges();
+            }
+        }
+
+        public static void CalculateTradeBalance(string country)
+        {
+            using (ForexModel context = new ForexModel())
+            {
+                var data = context.Trades.Where(c => c.Country == country);
+                var exports = data.Where(f => f.Flow == 2).OrderBy(y => y.Year).ToList();
+                var imports = data.Where(f => f.Flow == 1).OrderBy(y => y.Year).ToList();
+
+                for (int i = 0; i < exports.Count; i++)
+                {
+                    TradeBalance balance = new TradeBalance
+                    {
+                        Country = country,
+                        Year = exports[i].Year,
+                        Balance = exports[i].Value - imports[i].Value
+                    };
+
+                    context.TradeBalances.Add(balance);
+                }
+
+                context.SaveChanges();
             }
         }
 

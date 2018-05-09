@@ -2,30 +2,61 @@
 using System.Data.Entity;
 using System.Linq;
 using ForexDataPreparation.Entities;
+using ForexDataPreparation.Enums;
+using ForexDataPreparation.Helpers;
 using ForexDataPreparation.Interfaces;
 
 namespace ForexDataPreparation.Procedures
 {
     public static class GrowthCalculations
     {
-        public static void CalculateForexGrowth<T, TGrowth>(int periodByDays, DbSet<T> tentity, DbSet<TGrowth> tgrowth) where T : class, IRawData where TGrowth : class, IGrowth, new()
+        public static void CalculateForexGrowth<T, TGrowth>(Period period, DbSet<T> tentity, DbSet<TGrowth> tgrowth) where T : class, IRawData where TGrowth : class, IGrowth, new()
         {
             DateTime startDateTime = new DateTime(2000, 1, 1);
             var data = tentity.Where(d => d.Date > startDateTime).ToList();
-            for (int i = periodByDays; i < data.Count; i += periodByDays)
+
+            int minYear = data.Select(d => d.Date.Year).Min();
+            int maxYear = data.Select(d => d.Date.Year).Max();
+
+            for (int i = minYear + 1; i <= maxYear; i++)
             {
-                DateTime currentDay = data[i].Date;
-
-                double currentPrice = data[i].Close;
-                double previousDayPrice = data[i - periodByDays].Close;
-                double growth = CalculateGrowth(previousDayPrice, currentPrice);
-
-                var item = new TGrowth
+                if (period == Period.Yearly)
                 {
-                    Date = currentDay,
-                    CloseGrowth = growth
-                };
-                tgrowth.Add(item);
+                    DateTime currentDay = DateHelpers.GetFirstAvailableDay(data, i, 1);
+                    DateTime previousDay = DateHelpers.GetFirstAvailableDay(data, i-1, 1);
+
+                    double currentPrice = data.Where(d => d.Date == currentDay).Select(v => v.Close).First();
+                    double previousDayPrice = data.Where(d => d.Date == previousDay).Select(v => v.Close).First();
+                    double growth = CalculateGrowth(previousDayPrice, currentPrice);
+
+                    var item = new TGrowth
+                    {
+                        Date = currentDay,
+                        CloseGrowth = growth
+                    };
+                    tgrowth.Add(item);
+                }
+                else if (period == Period.Quaterly)
+                {
+                    int month = 1;
+                    for (int j = 1; j <= 4; j++)
+                    {
+                        DateTime currentDay = DateHelpers.GetFirstAvailableDay(data, i, month);
+                        var previousDay = month != 1 ? DateHelpers.GetFirstAvailableDay(data, i, month - 3) : DateHelpers.GetFirstAvailableDay(data, i - 1, 10);
+
+                        double currentPrice = data.Where(d => d.Date == currentDay).Select(v => v.Close).First();
+                        double previousDayPrice = data.Where(d => d.Date == previousDay).Select(v => v.Close).First();
+                        double growth = CalculateGrowth(previousDayPrice, currentPrice);
+
+                        var item = new TGrowth
+                        {
+                            Date = currentDay,
+                            CloseGrowth = growth
+                        };
+                        tgrowth.Add(item);
+                        month += 3;
+                    }
+                }
             }
         }
 

@@ -2,9 +2,8 @@
 
 namespace ForexDataPreparation.Interfaces
 {
-    public interface IGrowth
+    public interface IGrowth : IDate
     {
-        DateTime Date { get; set; }
         double CloseGrowth { get; set; }
     }
 }
