@@ -12,7 +12,7 @@ namespace ForexDataPreparation.Procedures
     {
         public static void CalculateForexGrowth<T, TGrowth>(Period period, DbSet<T> tentity, DbSet<TGrowth> tgrowth) where T : class, IRawData where TGrowth : class, IGrowth, new()
         {
-            DateTime startDateTime = new DateTime(2000, 1, 1);
+            DateTime startDateTime = new DateTime(1999, 1, 1);
             var data = tentity.Where(d => d.Date > startDateTime).ToList();
 
             int minYear = data.Select(d => d.Date.Year).Min();

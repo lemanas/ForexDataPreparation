@@ -38,11 +38,11 @@ namespace ForexDataPreparation
                 DifferenceCalculations.CalculateTradeBalance("USA");
                 Console.WriteLine(@"Finished trade balance calculations");
 
-                AnalyticRecordCreator.UploadAnalyticRecords();
-                Console.WriteLine(@"Finished uploading analytic records");
-
                 Console.WriteLine(@"Saving changes...");
                 context.SaveChanges();
+
+                AnalyticRecordCreator.UploadAnalyticRecords();
+                Console.WriteLine(@"Finished uploading analytic records");
             }
 
         }

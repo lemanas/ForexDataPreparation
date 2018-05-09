@@ -1,10 +1,11 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using ForexDataPreparation.Interfaces;
 
 namespace ForexDataPreparation.Entities
 {
     [Table("CpiQuaterlyDifferences", Schema = "calc")]
-    public class CpiQuaterlyDifference
+    public class CpiQuaterlyDifference : IQuarterly
     {
         [Key]
         [Column(Order = 0)]
@@ -12,7 +13,7 @@ namespace ForexDataPreparation.Entities
 
         [Key]
         [Column(Order = 1)]
-        public int Quater { get; set; }
+        public int Quarter { get; set; }
 
         [Key]
         [Column(Order = 2)]

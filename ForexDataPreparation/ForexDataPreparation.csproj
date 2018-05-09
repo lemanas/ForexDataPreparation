@@ -75,6 +75,7 @@
     <Compile Include="Helpers\DateHelpers.cs" />
     <Compile Include="Interfaces\IDate.cs" />
     <Compile Include="Interfaces\IGrowth.cs" />
+    <Compile Include="Interfaces\IQuarterly.cs" />
     <Compile Include="Interfaces\IRawData.cs" />
     <Compile Include="Migrations\201804301719449_QuaterlyGrowthTables.cs" />
     <Compile Include="Migrations\201804301719449_QuaterlyGrowthTables.Designer.cs">
@@ -192,6 +193,10 @@
     <Compile Include="Migrations\201805091944000_AnalyticTbl.Designer.cs">
       <DependentUpon>201805091944000_AnalyticTbl.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201805092219247_NoIdea.cs" />
+    <Compile Include="Migrations\201805092219247_NoIdea.Designer.cs">
+      <DependentUpon>201805092219247_NoIdea.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Procedures\AnalyticRecordCreator.cs" />
     <Compile Include="Procedures\DifferenceCalculations.cs" />
@@ -293,6 +298,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201805091944000_AnalyticTbl.resx">
       <DependentUpon>201805091944000_AnalyticTbl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201805092219247_NoIdea.resx">
+      <DependentUpon>201805092219247_NoIdea.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
