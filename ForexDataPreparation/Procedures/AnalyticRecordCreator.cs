@@ -18,6 +18,7 @@ namespace ForexDataPreparation.Procedures
                     int year = cpiYearly[i].Year;
                     AnalyticRecord record = new AnalyticRecord
                     {
+                        Id = i,
                         Year = year,
                         CpiDifference = cpiYearly[i].Difference,
                         CpiTendency = CalculateTendency(context.CpiQuaterlyDifferences.ToList(), year),

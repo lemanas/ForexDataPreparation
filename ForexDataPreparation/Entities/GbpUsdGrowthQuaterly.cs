@@ -12,7 +12,6 @@ namespace ForexDataPreparation.Entities
         [Column(Order = 0, TypeName = "datetime2")]
         public DateTime Date { get; set; }
 
-        [Key]
         [Column(Order = 1)]
         public double CloseGrowth { get; set; }
     }

@@ -22,7 +22,6 @@ namespace ForexDataPreparation.Entities
         [Column(Order = 3)]
         public int Year { get; set; }
 
-        [Key]
         [Column(Order = 4)]
         public double Value { get; set; }
     }

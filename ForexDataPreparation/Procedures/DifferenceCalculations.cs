@@ -25,6 +25,7 @@ namespace ForexDataPreparation.Procedures
 
                     CpiYearlyDifference difference = new CpiYearlyDifference
                     {
+                        Id = i,
                         Year = year,
                         Difference = ukRate.Rate - usRate.Rate
                     };
@@ -53,6 +54,7 @@ namespace ForexDataPreparation.Procedures
 
                     CpiQuaterlyDifference difference = new CpiQuaterlyDifference
                     {
+                        Id = i,
                         Year = year,
                         Quarter = quater,
                         Difference = ukRate.Rate - usRate.Rate

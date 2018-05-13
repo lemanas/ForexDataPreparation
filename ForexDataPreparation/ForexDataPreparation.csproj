@@ -197,6 +197,22 @@
     <Compile Include="Migrations\201805092219247_NoIdea.Designer.cs">
       <DependentUpon>201805092219247_NoIdea.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201805131611261_RemovedKeys.cs" />
+    <Compile Include="Migrations\201805131611261_RemovedKeys.Designer.cs">
+      <DependentUpon>201805131611261_RemovedKeys.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201805131629395_KeysReplaced.cs" />
+    <Compile Include="Migrations\201805131629395_KeysReplaced.Designer.cs">
+      <DependentUpon>201805131629395_KeysReplaced.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201805131635006_InterestRateKeyRep.cs" />
+    <Compile Include="Migrations\201805131635006_InterestRateKeyRep.Designer.cs">
+      <DependentUpon>201805131635006_InterestRateKeyRep.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201805131637055_ArTblKeyRepl.cs" />
+    <Compile Include="Migrations\201805131637055_ArTblKeyRepl.Designer.cs">
+      <DependentUpon>201805131637055_ArTblKeyRepl.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Procedures\AnalyticRecordCreator.cs" />
     <Compile Include="Procedures\DifferenceCalculations.cs" />
@@ -301,6 +317,18 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201805092219247_NoIdea.resx">
       <DependentUpon>201805092219247_NoIdea.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201805131611261_RemovedKeys.resx">
+      <DependentUpon>201805131611261_RemovedKeys.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201805131629395_KeysReplaced.resx">
+      <DependentUpon>201805131629395_KeysReplaced.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201805131635006_InterestRateKeyRep.resx">
+      <DependentUpon>201805131635006_InterestRateKeyRep.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201805131637055_ArTblKeyRepl.resx">
+      <DependentUpon>201805131637055_ArTblKeyRepl.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -9,14 +9,15 @@ namespace ForexDataPreparation.Entities
     {
         [Key]
         [Column(Order = 0)]
+        public int Id { get; set; }
+
+        [Column(Order = 1)]
         public int Year { get; set; }
 
-        [Key]
-        [Column(Order = 1)]
+        [Column(Order = 2)]
         public int Quarter { get; set; }
 
-        [Key]
-        [Column(Order = 2)]
+        [Column(Order = 3)]
         public double Difference { get; set; }
     }
 }

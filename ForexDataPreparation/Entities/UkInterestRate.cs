@@ -10,7 +10,6 @@ namespace ForexDataPreparation.Entities
         [Column(Order = 0)]
         public string Date { get; set; }
 
-        [Key]
         [Column(Order = 1)]
         public double Rate { get; set; }
     }

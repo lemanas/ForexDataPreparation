@@ -14,7 +14,6 @@ namespace ForexDataPreparation.Entities
         [Column(Order = 1)]
         public string Date { get; set; }
 
-        [Key]
         [Column(Order = 2)]
         public double Rate { get; set; }
     }
