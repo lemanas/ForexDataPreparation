@@ -30,6 +30,7 @@ namespace ForexDataPreparation
         public virtual DbSet<InterestRateQuaterlyDifference> InterestRateQuaterlyDifferences { get; set; }
         public virtual DbSet<TradeBalance> TradeBalances { get; set; }
         public virtual DbSet<AnalyticRecord> AnalyticRecords { get; set; }
+        public virtual DbSet<AnalyticQuarterlyRecord> AnalyticQuarterlyRecords { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {

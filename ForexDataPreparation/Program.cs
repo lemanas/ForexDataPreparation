@@ -42,6 +42,7 @@ namespace ForexDataPreparation
                 context.SaveChanges();
 
                 AnalyticRecordCreator.UploadAnalyticRecords();
+                AnalyticRecordCreator.UploadAnalyticQuarterlyRecords();
                 Console.WriteLine(@"Finished uploading analytic records");
             }
 
