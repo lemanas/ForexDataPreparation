@@ -51,6 +51,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Entities\AnalyticDailyRecord.cs" />
     <Compile Include="Entities\AnalyticQuarterlyRecord.cs" />
     <Compile Include="Entities\AnalyticRecord.cs" />
     <Compile Include="Entities\CpiQuaterlyDifference.cs" />
@@ -222,6 +223,10 @@
     <Compile Include="Migrations\201805141921342_ChangeAnalyticQTtblSchema.Designer.cs">
       <DependentUpon>201805141921342_ChangeAnalyticQTtblSchema.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201805261134482_AnalyticDailyRecordsTbl.cs" />
+    <Compile Include="Migrations\201805261134482_AnalyticDailyRecordsTbl.Designer.cs">
+      <DependentUpon>201805261134482_AnalyticDailyRecordsTbl.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Procedures\AnalyticRecordCreator.cs" />
     <Compile Include="Procedures\DifferenceCalculations.cs" />
@@ -344,6 +349,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201805141921342_ChangeAnalyticQTtblSchema.resx">
       <DependentUpon>201805141921342_ChangeAnalyticQTtblSchema.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201805261134482_AnalyticDailyRecordsTbl.resx">
+      <DependentUpon>201805261134482_AnalyticDailyRecordsTbl.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

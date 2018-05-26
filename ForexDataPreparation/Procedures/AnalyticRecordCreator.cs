@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using ForexDataPreparation.Entities;
 using ForexDataPreparation.Enums;
@@ -16,33 +17,71 @@ namespace ForexDataPreparation.Procedures
                 for (int i = 1; i < cpiYearly.Count; i++)
                 {
                     int year = cpiYearly[i].Year;
-                    AnalyticRecord record = new AnalyticRecord
-                    {
-                        Id = i,
-                        Year = year,
-                        CpiDifference = cpiYearly[i].Difference,
-                        CpiTendency = CalculateTendency(context.CpiQuaterlyDifferences.ToList(), year),
-                        InterestRateDifference = context.InterestRateYearlyDifferences.Where(c => c.Year == year)
-                            .Select(v => v.Difference).Single(),
-                        InterestRateTendency =
-                            CalculateTendency(context.InterestRateQuaterlyDifferences.ToList(), year),
-                        TradeBalanceByUk = context.TradeBalances.Where(c => c.Country == "UK" && c.Year == year)
-                            .Select(v => v.Balance).Single(),
-                        TradeBalanceByUs = context.TradeBalances.Where(c => c.Country == "USA" && c.Year == year)
-                            .Select(v => v.Balance).Single(),
-                        DebtGrowthUk = context.DebtGrowths.Where(c => c.Country == "UK" && c.Year == year)
-                            .Select(v => v.Growth)
-                            .Single(),
-                        DebtGrowthUs = context.DebtGrowths.Where(c => c.Country == "USA" && c.Year == year)
-                            .Select(v => v.Growth)
-                            .Single(),
-                        ForexTendency = context.GbpUsdGrowthQuaterlies.Where(y => y.Date.Year == year - 1)
-                            .Select(v => v.CloseGrowth).Average(),
-                        Outcome = GetOutcomeLabel(context.GbpUsdGrowth.Where(y => y.Date.Year == year)
-                            .Select(v => v.CloseGrowth).Single())
-                    };
+                    AnalyticRecord record = new AnalyticRecord();
+                    record.Id = i;
+                    record.Year = year;
+                    record.CpiDifference = cpiYearly[i].Difference;
+                    record.CpiTendency = CalculateTendency(context.CpiQuaterlyDifferences.ToList(), year);
+                    record.InterestRateDifference = context.InterestRateYearlyDifferences.Where(c => c.Year == year)
+                        .Select(v => v.Difference).Single();
+                    record.InterestRateTendency =
+                        CalculateTendency(context.InterestRateQuaterlyDifferences.ToList(), year);
+                    record.TradeBalanceByUk = context.TradeBalances.Where(c => c.Country == "UK" && c.Year == year)
+                        .Select(v => v.Balance).Single();
+                    record.TradeBalanceByUs = context.TradeBalances.Where(c => c.Country == "USA" && c.Year == year)
+                        .Select(v => v.Balance).Single();
+                    record.DebtGrowthUk = context.DebtGrowths.Where(c => c.Country == "UK" && c.Year == year)
+                        .Select(v => v.Growth)
+                        .Single();
+                    record.DebtGrowthUs = context.DebtGrowths.Where(c => c.Country == "USA" && c.Year == year)
+                        .Select(v => v.Growth)
+                        .Single();
+                    record.ForexTendency = context.GbpUsdGrowthQuaterlies.Where(y => y.Date.Year == year - 1)
+                        .Select(v => v.CloseGrowth).Average();
+                    record.Outcome = GetOutcomeLabel(context.GbpUsdGrowth.Where(y => y.Date.Year == year)
+                        .Select(v => v.CloseGrowth).First());
 
                     context.AnalyticRecords.Add(record);
+                }
+                context.SaveChanges();
+            }
+        }
+
+        public static void UploadAnalyticDailyRecords()
+        {
+            using (ForexModel context = new ForexModel())
+            {
+                var forexGrowths = context.GbpUsdGrowth.ToList();
+
+                for (int i = 260; i < forexGrowths.Count; i++)
+                {
+                    var date = forexGrowths[i].Date;
+                    var recDate = date.AddMonths(-3);
+                    AnalyticDailyRecord record = new AnalyticDailyRecord();
+                    record.Id = i;
+                    record.Date = date;
+                    record.CpiDifference = context.CpiYearlyDifferences.Where(d => d.Year == date.Year)
+                        .Select(v => v.Difference).Single();
+                    record.CpiTendency = CalculateTendency(context.CpiQuaterlyDifferences.ToList(), date.Year);
+                    record.InterestRateDifference = context.InterestRateYearlyDifferences.Where(c => c.Year == date.Year)
+                        .Select(v => v.Difference).Single();
+                    record.InterestRateTendency = CalculateTendency(context.InterestRateQuaterlyDifferences.ToList(), date.Year);
+                    record.TradeBalanceByUk = context.TradeBalances.Where(c => c.Country == "UK" && c.Year == date.Year)
+                        .Select(v => v.Balance).Single();
+                    record.TradeBalanceByUs = context.TradeBalances.Where(c => c.Country == "USA" && c.Year == date.Year)
+                        .Select(v => v.Balance).Single();
+                    record.DebtGrowthUk = context.DebtGrowths.Where(c => c.Country == "UK" && c.Year == date.Year)
+                        .Select(v => v.Growth)
+                        .Single();
+                    record.DebtGrowthUs = context.DebtGrowths.Where(c => c.Country == "USA" && c.Year == date.Year)
+                        .Select(v => v.Growth)
+                        .Single();
+                    record.ForexTendency = context.GbpUsdGrowth.Where(y => y.Date < date && y.Date > recDate)
+                        .Select(v => v.CloseGrowth).Average();
+                    record.Outcome = GetOutcomeLabel(forexGrowths.Where(d => d.Date == date).Select(v => v.CloseGrowth)
+                        .Single());
+
+                    context.AnalyticDailyRecords.Add(record);
                 }
                 context.SaveChanges();
             }
@@ -137,8 +176,8 @@ namespace ForexDataPreparation.Procedures
         private static Outcome GetOutcomeLabel(double value)
         {
             if (value >= 10) return Outcome.Fortunate;
-            if (value < 10 && value >= 2) return Outcome.Positive;
-            if (value > -10 && value <= -2) return Outcome.Negative;
+            if (value < 10 && value >= 5) return Outcome.Positive;
+            if (value > -10 && value <= -5) return Outcome.Negative;
             if (value < -10) return Outcome.Severe;
             return Outcome.Neutral;
         }

@@ -58,6 +58,30 @@ namespace ForexDataPreparation.Procedures
                     }
                 }
             }
+            if (period == Period.Daily)
+            {
+                for (int i = 261; i < data.Count; i++)
+                {
+                    DateTime currentDay = data[i].Date;
+                    DateTime previousDay = currentDay.AddYears(-1);
+                    if (previousDay.DayOfWeek == DayOfWeek.Saturday) previousDay = previousDay.AddDays(2);
+                    if (previousDay.DayOfWeek == DayOfWeek.Sunday) previousDay = previousDay.AddDays(1);
+
+                    double currentPrice = data[i].Close;
+                    double previousDayPrice = data.Where(d => d.Date == previousDay).Select(v => v.Close).SingleOrDefault();
+                    double growth = CalculateGrowth(previousDayPrice, currentPrice);
+
+                    if (growth != 0)
+                    {
+                        var item = new TGrowth
+                        {
+                            Date = currentDay,
+                            CloseGrowth = growth
+                        };
+                        tgrowth.Add(item);
+                    }
+                }
+            }
         }
 
         public static void CalculateDebtGrowth(string country)
@@ -86,6 +110,7 @@ namespace ForexDataPreparation.Procedures
 
         private static double CalculateGrowth(double previousValue, double currentValue)
         {
+            if (previousValue == 0) return 0;
             double difference = currentValue - previousValue;
             return (difference / previousValue) * 100;
         }
