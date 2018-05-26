@@ -105,7 +105,7 @@ namespace ForexDataPreparation.Procedures
                         Year = year,
                         Quarter = quarter,
                         CpiDifference = cpiQuarterly[i].Difference,
-                        CpiTendency = CalculateTendencyForQuarterly(cpiQuarterly, year + 1, quarter),
+                        CpiTendency = CalculateTendencyForQuarterly(cpiQuarterly, year, quarter),
                         InterestRateDifference = interestRateQuarterly
                             .Where(c => c.Year == year && c.Quarter == quarter).Select(v => v.Difference).Single(),
                         InterestRateTendency = CalculateTendencyForQuarterly(interestRateQuarterly, year + 1, quarter),
